@@ -1,50 +1,65 @@
-# Welcome to your Expo app 👋
+## Overview
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Pixl is a simple movie browsing application made using Expo React Native.
 
-## Get started
+## Features
 
-1. Install dependencies
+Core Functionality:
+- Browse movie catalog from TMDB API
+- Search functionality
+- Popularity tracking
 
-   ```bash
-   npm install
-   ```
+Technical Highlights:
+- TypeScript
+- Expo React Native
+- Native Wind
+- Appwrite backend for the algorithm
 
-2. Start the app
+The popularity algorithm is a simple algorithm where the user search is stored on an Appwrite instance, updating the search count in the collection in real-time while using TMDB API for displayig movie data.
 
-   ```bash
-    npx expo start
-   ```
+## Setup Instructions
 
-In the output, you'll find options to open the app in a
+### Prerequisites
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+* Node.js
+* npm/yarn
+* Appwrite instance
+* TMDB API key
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Installation
 
-## Get a fresh project
-
-When you're ready, run:
-
+```markdown
 ```bash
-npm run reset-project
+git clone gh repo clone YumethW/Pixl
+cd pixl
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Environment Variables
 
-## Learn more
+Create a `.env` file in the root directory:
 
-To learn more about developing your project with Expo, look at the following resources:
+```plaintext
+EXPO_PUBLIC_MOVIE_API_KEY=your_api_key_here
+EXPO_PUBLIC_APPWRITE_PROJECT_ID=http://localhost/v1
+EXPO_PUBLIC_APPWRITE_DATABASE_ID=your_project_id
+EXPO_PUBLIC_APPWRITE_COLLECTION_ID=your_api_key
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Development
 
-## Join the community
+```bash
+npm start
+# or
+expo start
+```
 
-Join our community of developers creating universal apps.
+Open Expo Go app on your device and scan the QR code to preview the application.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Technical Stack
+
+- TypeScript
+- Expo React Native
+- Native Wind
+- Appwrite
+- TMDB API for movie data
