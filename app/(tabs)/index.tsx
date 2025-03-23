@@ -28,6 +28,13 @@ export default function Index() {
     error: moviesError,
   } = useFetch(() => fetchMovies({ query: "" }));
 
+  const uniqueTrendingMovies = trendingMovies
+    ? trendingMovies.filter(
+        (movie, index, self) =>
+          index === self.findIndex((m) => m.movie_id === movie.movie_id)
+      )
+    : [];
+
   return (
     <ScrollView className="bg-black flex-1">
       <View className="items-center px-4 py-8">
@@ -64,15 +71,12 @@ export default function Index() {
                   horizontal
                   showsHorizontalScrollIndicator={false}
                   className="mb-4 mt-3"
-                  data={trendingMovies}
-                  contentContainerStyle={{
-                    gap: 26,
-                  }}
+                  data={uniqueTrendingMovies}
+                  contentContainerStyle={{ gap: 26 }}
                   renderItem={({ item, index }) => (
                     <TrendingCard movie={item} index={index} />
                   )}
                   keyExtractor={(item) => item.movie_id.toString()}
-                  ItemSeparatorComponent={() => <View className="w-4" />}
                 />
               </View>
             )}
