@@ -1,0 +1,47 @@
+# Node & NPM
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# IDE & Editor Files
+.vscode
+.idea
+.DS_Store
+
+# Operating System Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Expo & React Native
+.expo
+.expo-shared
+.web-build
+.bare
+.react
+.__generated__
+
+# Build Artifacts
+dist
+build
+android/app/build
+ios/build
+
+# Test Coverage
+coverage
+.jest
+
+# Log Files
+*.log
+*.tmp
+*.temp
+
+# Cache Files
+.cache
+.yarn/cache
+.yarn/unplugged
