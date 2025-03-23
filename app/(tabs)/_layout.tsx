@@ -3,7 +3,6 @@ import { Tabs } from "expo-router";
 import {
   Home,
   Import,
-  LucideProps,
   Search,
   UserRoundPen,
 } from "lucide-react-native";
