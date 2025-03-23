@@ -1,7 +1,9 @@
 import MovieCard from "@/components/movieCard";
 import SearchBar from "@/components/searchBar";
+import TrendingCard from "@/components/trendingCard";
 import useFetch from "@/hooks/useFetch";
 import { fetchMovies } from "@/services/api";
+import { getTrendingMovies } from "@/services/appwrite";
 import { useRouter } from "expo-router";
 import {
   ActivityIndicator,
@@ -10,13 +12,15 @@ import {
   ScrollView,
   Text,
   View,
-  Dimensions,
-  TouchableOpacity,
 } from "react-native";
 
 export default function Index() {
   const router = useRouter();
-  const { width: screenWidth } = Dimensions.get("window");
+  const {
+    data: trendingMovies,
+    loading: trendingLoading,
+    error: trendingError,
+  } = useFetch(getTrendingMovies);
 
   const {
     data: movies,
@@ -32,13 +36,13 @@ export default function Index() {
           className="w-32 h-32 mb-6"
         />
 
-        {moviesLoading ? (
+        {moviesLoading || trendingLoading ? (
           <ActivityIndicator
             size="large"
             color="#004953"
             className="mt-10 self-center"
           />
-        ) : moviesError ? (
+        ) : moviesError || trendingError ? (
           <Text className="text-white mt-4 text-center">
             Hmmmmm looks like we have a {moviesError?.message}
           </Text>
@@ -50,6 +54,28 @@ export default function Index() {
                 router.push("/search");
               }}
             />
+
+            {trendingMovies && (
+              <View className="mt-10">
+                <Text className="text-lg text-white font-bold mb-3">
+                  Trending Movies
+                </Text>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  className="mb-4 mt-3"
+                  data={trendingMovies}
+                  contentContainerStyle={{
+                    gap: 26,
+                  }}
+                  renderItem={({ item, index }) => (
+                    <TrendingCard movie={item} index={index} />
+                  )}
+                  keyExtractor={(item) => item.movie_id.toString()}
+                  ItemSeparatorComponent={() => <View className="w-4" />}
+                />
+              </View>
+            )}
 
             <View className="mt-8">
               <View className="flex-row justify-between items-center mb-4">

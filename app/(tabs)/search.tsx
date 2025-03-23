@@ -4,9 +4,18 @@ import useFetch from "@/hooks/useFetch";
 import { fetchMovies } from "@/services/api";
 import MovieCard from "@/components/movieCard";
 import SearchBar from "@/components/searchBar";
+import { updateSearchCount } from "@/services/appwrite";
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
+
+  const {
+    data: movies = [],
+    loading,
+    error,
+    refetch: loadMovies,
+    reset,
+  } = useFetch(() => fetchMovies({ query: searchQuery }), false);
 
   const handleSearch = (text: string) => {
     setSearchQuery(text);
@@ -16,25 +25,19 @@ const Search = () => {
     const timeoutId = setTimeout(async () => {
       if (searchQuery.trim()) {
         await loadMovies();
-
-        if (movies?.length! > 0 && movies?.[0]) {
-          await updateSearchCount(searchQuery, movies[0]);
-        }
       } else {
         reset();
       }
-    }, 750);
+    }, 500);
 
     return () => clearTimeout(timeoutId);
   }, [searchQuery]);
 
-  const {
-    data: movies,
-    loading: moviesLoading,
-    error: moviesError,
-    refetch: loadMovies,
-    reset,
-  } = useFetch(() => fetchMovies({ query: "" }));
+  useEffect(() => {
+    if (movies?.length! > 0 && movies?.[0]) {
+      updateSearchCount(searchQuery, movies[0]);
+    }
+  }, [movies]);
 
   return (
     <View className="flex-1 bg-black text-white">
@@ -68,7 +71,7 @@ const Search = () => {
               />
             </View>
 
-            {moviesLoading && (
+            {loading && (
               <ActivityIndicator
                 size="large"
                 color="#0000ff"
@@ -76,14 +79,12 @@ const Search = () => {
               />
             )}
 
-            {moviesError && (
-              <Text className="text-red px-5 my-3">
-                Error: {moviesError.message}
-              </Text>
+            {error && (
+              <Text className="text-red px-5 my-3">Error: {error.message}</Text>
             )}
 
-            {!moviesLoading &&
-              !moviesError &&
+            {!loading &&
+              !loading &&
               searchQuery.trim() &&
               movies?.length! > 0 && (
                 <Text className="text-xl text-white font-bold mb-10">
@@ -94,7 +95,7 @@ const Search = () => {
           </>
         }
         ListEmptyComponent={
-          !moviesLoading && !moviesError ? (
+          !loading && !error ? (
             <View className="mt-10 px-5">
               <Text className="text-center text-gray-500">
                 {searchQuery.trim()

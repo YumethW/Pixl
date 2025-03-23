@@ -19,7 +19,6 @@ const MovieCard = ({
   release_date,
 }: Movie) => {
   const { width } = Dimensions.get("window");
-  // Calculate card width: (screen width - padding on both sides - gap between cards) / 3 cards
   const cardWidth = (width - 32 - 16) / 3;
 
   return (
@@ -34,7 +33,7 @@ const MovieCard = ({
             }}
             style={{
               width: cardWidth,
-              height: cardWidth * 1.5, // Maintain movie poster aspect ratio
+              height: cardWidth * 1.5,
             }}
             resizeMode="cover"
           />

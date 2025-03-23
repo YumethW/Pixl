@@ -4,8 +4,8 @@ import { Search } from "lucide-react-native";
 interface props {
   onPress?: () => void;
   placeholder: string;
-  value: string;
-  onChangeText: (text: string) => void;
+  value?: string;
+  onChangeText?: (text: string) => void;
 }
 
 const SearchBar = ({ onPress, placeholder, value, onChangeText }: props) => {
