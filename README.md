@@ -31,7 +31,7 @@ Pixl is a simple movie browser made using Expo React Native.
 ### Installation
 
 ```bash
-git clone gh repo clone YumethW/Pixl
+git clone https://github.com/YumethW/Pixl.git
 cd pixl
 npm install
 ```
